@@ -1,4 +1,0 @@
-VoteReward
-==========
-
-A PocketMine plugin

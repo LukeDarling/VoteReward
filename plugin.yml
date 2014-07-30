@@ -1,0 +1,19 @@
+name: VoteReward
+main: LDX\VoteReward\Main
+version: 2.0
+api: [1.1.0]
+author: LDX
+load: POSTWORLD
+commands:
+  vote:
+    description: "Checks to see if you've voted yet."
+    usage: "/vote"
+    permission: votereward.vote
+permissions:
+  votereward:
+    description: "Allows access to all VoteReward features."
+    default: op
+    children:
+      votereward.vote:
+        description: "Allows access to using the vote command."
+        default: true
