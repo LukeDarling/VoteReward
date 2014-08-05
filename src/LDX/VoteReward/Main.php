@@ -1,5 +1,7 @@
 <?php
+
 namespace LDX\VoteReward;
+
 use LDX\VoteReward\Query;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -9,6 +11,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 use pocketmine\item\Item;
+
 class Main extends PluginBase {
   public function onEnable() {
     if(!file_exists($this->getDataFolder() . "config.yml")) {
