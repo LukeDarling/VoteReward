@@ -1,15 +1,15 @@
 <?php
 namespace LDX\VoteReward;
-use LDX\VoteReward\Query;
+
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
-use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 use pocketmine\item\Item;
 class Main extends PluginBase {
+  private $items, $commands, $key, $url;
   public function onEnable() {
     if(!file_exists($this->getDataFolder() . "config.yml")) {
       @mkdir($this->getDataFolder());
@@ -37,18 +37,19 @@ class Main extends PluginBase {
       return true;
     }
     if($p->hasPermission("votereward") || $p->hasPermission("votereward.vote")) {
-      $query = new Query($this,$p,"http://minecraftpocket-servers.com/api/?object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(),true);
+      $query = new \QueryTask($this,$p,"http://minecraftpocket-servers.com/api/?object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(),true);
+      $this->getServer()->getScheduler()->scheduleAsyncTask($query);
     } else {
       $p->sendMessage("You do not have permission to vote.");
     }
     return true;
   }
-  public function give($p,$s) {
-    $s = 1; // DEBUG
+  public function give(Player $p, $s) {
     if($s == "0") {
       $p->sendMessage("You haven't voted yet!\n" . $this->url . "\nVote now for cool rewards!");
     } else if($s == "1") {
-      $query = new Query($this,$p,"http://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(),false);
+      $query = new \QueryTask($this,$p,"http://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(),false);
+      $this->getServer()->getScheduler()->scheduleAsyncTask($query);
       foreach($this->items as $i) {
         $p->getInventory()->addItem($i);
       }
@@ -62,6 +63,5 @@ class Main extends PluginBase {
       $p->sendMessage("[VoteReward] Error fetching vote status!");
     }
   }
-  public function onDisable() { }
 }
-?>
+
