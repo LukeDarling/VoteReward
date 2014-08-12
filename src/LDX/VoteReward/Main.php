@@ -36,18 +36,18 @@ class Main extends PluginBase {
       return true;
     }
     if($p->hasPermission("votereward") || $p->hasPermission("votereward.vote")) {
-      $query = new QueryTask("http://minecraftpocket-servers.com/api/?object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(), $p->getName(), true);
+      $query = new QueryTask("http://minecraftpocket-servers.com/api/?object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(),$p->getName(),true);
       $this->getServer()->getScheduler()->scheduleAsyncTask($query);
     } else {
       $p->sendMessage("You do not have permission to vote.");
     }
     return true;
   }
-  public function give(Player $p, $s) {
+  public function give(Player $p,$s) {
     if($s == "0") {
       $p->sendMessage("You haven't voted yet!\n" . $this->url . "\nVote now for cool rewards!");
     } else if($s == "1") {
-      $query = new QueryTask("http://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(), $p->getName(), false);
+      $query = new QueryTask("http://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=" . $this->key . "&username=" . $p->getName(),$p->getName(),false);
       $this->getServer()->getScheduler()->scheduleAsyncTask($query);
       foreach($this->items as $i) {
         $p->getInventory()->addItem($i);
