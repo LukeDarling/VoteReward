@@ -1,4 +1,5 @@
 <?php
+namespace LDX\VoteReward;
 use pocketmine\Player;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
