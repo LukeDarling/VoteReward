@@ -53,7 +53,7 @@ class Main extends PluginBase {
         $p->getInventory()->addItem($i);
       }
       foreach($this->commands as $i) {
-        $this->getServer()->dispatchCommand(new ConsoleCommandSender(),$i);
+        $this->getServer()->dispatchCommand(new ConsoleCommandSender(),str_replace("{PLAYER}",$p->getName(),$i));
       }
     } else if($s == "2") {
       $p->sendMessage("You've already voted today! Come back tomorrow to vote again.");
