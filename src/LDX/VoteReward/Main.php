@@ -1,4 +1,3 @@
-
 <?php
 namespace LDX\VoteReward;
 use pocketmine\command\Command;
@@ -6,7 +5,6 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
-use LDX\VoteReward\QueryTask;
 use pocketmine\utils\TextFormat;
 use pocketmine\item\Item;
 class Main extends PluginBase {
