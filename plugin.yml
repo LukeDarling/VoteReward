@@ -4,6 +4,7 @@ version: 2.1
 api: [1.0.0,1.1.0,1.2.0,1.3.0]
 author: LDX
 load: POSTWORLD
+website: https://github.com/LDX-MCPE/VoteReward
 commands:
   vote:
     description: "Checks to see if you've voted yet."
