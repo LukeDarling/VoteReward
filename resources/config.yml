@@ -1,20 +1,22 @@
 # Config file for VoteReward by LDX;
-# VoteReward works with MinecraftPocket-Servers.com
 
-# Your server's API key; Can be found on your server's settings page.
-API-Key: ""
+# Variables:
+#   {USERNAME} ... The username of the player who voted. ............ Commands and message.
+#   {NICKNAME} ... The display name of the player who voted. ........ Commands and message.
+#   {X} .......... The X coordinate of the player. .................. Commands only.
+#   {Y} .......... The Y coordinate of the player. .................. Commands only.
+#   {Z} .......... The Z coordinate of the player. .................. Commands only.
+#   {LIST} ....... The ID of the server list the player voted on. ... Commands only.
 
-# The URL for players to go to so they can vote;
-Vote-URL: ""
+# Message to broadcast to the server when a player votes.
+Message: "The player {NICKNAME} voted with /vote and got cool rewards!"
 
-Rewards:
-
-# List of items to give players when they vote; Format: ID:Damage:Amount
-  Items:
+# List of items to give players when they vote. Format: ID:Damage:Amount
+Items:
   - "264:0:5"
   - "265:0:3"
   - "364:0:5"
 
-# List of commands to execute when a player votes; Use {PLAYER} to get the player's name.
-  Commands:
-  - "say {PLAYER} voted with /vote and got cool rewards!"
+# List of commands to execute when a player votes.
+Commands:
+  - ""
