@@ -22,7 +22,6 @@ permissions:
           votereward.command.vote:
             default: true
             description: "Allows access to using the vote command."
-            children:
-              votereward.command.vote.reload:
-                default: op
-                description: "Allows access to the vote reload subcommand."
+          votereward.command.reload:
+            default: op
+            description: "Allows access to the vote reload subcommand."
