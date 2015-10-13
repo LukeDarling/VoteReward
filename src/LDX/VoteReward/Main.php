@@ -11,6 +11,10 @@ use pocketmine\item\Item;
 
 class Main extends PluginBase {
 
+  private $message = [];
+  private $items = [];
+  private $commands = [];
+
   public function onEnable() {
     $this->reload();
   }
@@ -20,14 +24,15 @@ class Main extends PluginBase {
     if(!is_dir($this->getDataFolder() . "Lists/")) {
       mkdir($this->getDataFolder() . "Lists/");
     }
-    $this->config = $this->getConfig()->getAll();
+    $config = $this->getConfig()->getAll();
+    $this->message = $config["Message"];
     $this->items = [];
-    foreach($this->config["Items"] as $i) {
+    foreach($config["Items"] as $i) {
       $r = explode(":",$i);
       $this->items[] = new Item($r[0],$r[1],$r[2]);
     }
     $this->commands = [];
-    foreach($this->config["Commands"] as $i) {
+    foreach($config["Commands"] as $i) {
       $this->commands[] = $i;
     }
   }
