@@ -22,12 +22,12 @@ class Main extends PluginBase {
     }
     $this->config = $this->getConfig()->getAll();
     $this->items = [];
-    foreach($config["Items"] as $i) {
+    foreach($this->config["Items"] as $i) {
       $r = explode(":",$i);
       $this->items[] = new Item($r[0],$r[1],$r[2]);
     }
     $this->commands = [];
-    foreach($config["Commands"] as $i) {
+    foreach($this->config["Commands"] as $i) {
       $this->commands[] = $i;
     }
   }
