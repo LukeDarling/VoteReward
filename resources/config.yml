@@ -7,8 +7,10 @@
 #   {Y} .......... The Y coordinate of the player. .................. Commands only.
 #   {Z} .......... The Z coordinate of the player. .................. Commands only.
 
+# EssentialsPE style color codes can be used in the message and commands.
+
 # Message to broadcast to the server when a player votes.
-Message: "The player {NICKNAME} voted with /vote and got cool rewards!"
+Message: "The player {NICKNAME}&r voted with /vote and got cool rewards!"
 
 # List of items to give players when they vote. Format: ID:Damage:Amount
 Items:
