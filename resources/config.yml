@@ -6,7 +6,6 @@
 #   {X} .......... The X coordinate of the player. .................. Commands only.
 #   {Y} .......... The Y coordinate of the player. .................. Commands only.
 #   {Z} .......... The Z coordinate of the player. .................. Commands only.
-#   {LIST} ....... The ID of the server list the player voted on. ... Commands only.
 
 # Message to broadcast to the server when a player votes.
 Message: "The player {NICKNAME} voted with /vote and got cool rewards!"
