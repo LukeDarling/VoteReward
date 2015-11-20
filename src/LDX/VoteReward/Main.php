@@ -11,7 +11,7 @@ use pocketmine\item\Item;
 
 class Main extends PluginBase {
 
-  private $message = [];
+  private $message = "";
   private $items = [];
   private $commands = [];
 
@@ -35,6 +35,14 @@ class Main extends PluginBase {
     foreach($config["Commands"] as $i) {
       $this->commands[] = $i;
     }
+  }
+
+  public function getItems() {
+    $clones = [];
+    foreach($this->items as $item) {
+      $clones[] = clone $item;
+    }
+    return $clones;
   }
 
 }
