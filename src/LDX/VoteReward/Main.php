@@ -24,6 +24,14 @@ class Main extends PluginBase {
     if(!is_dir($this->getDataFolder() . "Lists/")) {
       mkdir($this->getDataFolder() . "Lists/");
     }
+    $lists = [];
+    foreach(scandir($this->getDataFolder() . "Lists/") as $file) {
+      $ext = explode(".", $file);
+      $ext = (count($ext) > 1 && isset($ext[count($ext) - 1]) ? strtolower($ext[count($ext) - 1]) : "");
+      if($ext == "vrc") {
+        $lists[] = $file;
+      }
+    }
     $config = $this->getConfig()->getAll();
     $this->message = $config["Message"];
     $this->items = [];
@@ -31,10 +39,7 @@ class Main extends PluginBase {
       $r = explode(":", $i);
       $this->items[] = new Item($r[0], $r[1], $r[2]);
     }
-    $this->commands = [];
-    foreach($config["Commands"] as $i) {
-      $this->commands[] = $i;
-    }
+    $this->commands = $config["Commands"];
   }
 
   public function getItems() {
@@ -45,7 +50,7 @@ class Main extends PluginBase {
     return $clones;
   }
 
-  public function rewardPlayer(Player $player, int $multiplier = 1) {
+  public function rewardPlayer(Player $player, int $multiplier) {
     foreach($this->getItems() as $item) {
       $item->setCount($item->getCount() * $multiplier);
       $player->addItem($item);
