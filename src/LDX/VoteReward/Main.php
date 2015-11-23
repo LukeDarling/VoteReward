@@ -42,6 +42,35 @@ class Main extends PluginBase {
     $this->commands = $config["Commands"];
   }
 
+  public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
+    switch(strtolower($command->getName())) {
+      case "vote":
+        if(!Utils::hasPermission($sender, "votereward.command.vote")) {
+          $sender->sendMessage("You do not have permission to use this command.");
+          break;
+        }
+        if(isset($args[0]) && strtolower($args[0]) == "reload") {
+          if(Utils::hasPermission($sender, "votereward.command.reload")) {
+            $this->reload();
+            $sender->sendMessage("[VoteReward] All configurations have been reloaded.");
+            break;
+          }
+          $sender->sendMessage("You do not have permission to use this subcommand.");
+          break;
+        }
+        if(!$sender instanceof Player) {
+          $sender->sendMessage("This command must be used in-game.");
+          break;
+        }
+        // TODO
+        break;
+      default:
+        $sender->sendMessage("Invalid command.");
+        break;
+    }
+    return true;
+  }
+
   public function getItems() {
     $clones = [];
     foreach($this->items as $item) {
