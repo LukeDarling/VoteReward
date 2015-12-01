@@ -8,19 +8,20 @@ use pocketmine\Server;
 
 class QueryTask extends AsyncTask {
 
-  function __construct(Request $request) {
-    $this->request = $request;
+  private $requests = [];
+
+  function __construct(array $requests) {
+    $this->requests = $requests;
   }
 
   public function onRun() {
-    $this->request->setData(file_get_contents($this->request->getURL()));
+    foreach($this->requests as $request) {
+      $request->setData(file_get_contents(str_replace("{USERNAME}", $request->getPlayer()->getName(), $request->getURL())));
+    }
   }
 
   public function onCompletion(Server $server) {
-    if($this->request->shouldReturn()) {
-      $server->getPluginManager()->getPlugin("VoteReward")->returnQuery($this->request->copy());
-      unset($this->request);
-    }
+    $server->getPluginManager()->getPlugin("VoteReward")->returnQuery($this->requests);
   }
 
 }

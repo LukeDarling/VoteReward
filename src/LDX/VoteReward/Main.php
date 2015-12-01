@@ -24,12 +24,12 @@ class Main extends PluginBase {
     if(!is_dir($this->getDataFolder() . "Lists/")) {
       mkdir($this->getDataFolder() . "Lists/");
     }
-    $lists = [];
+    $this->lists = [];
     foreach(scandir($this->getDataFolder() . "Lists/") as $file) {
       $ext = explode(".", $file);
       $ext = (count($ext) > 1 && isset($ext[count($ext) - 1]) ? strtolower($ext[count($ext) - 1]) : "");
       if($ext == "vrc") {
-        $lists[] = $file;
+        $this->lists[] = json_decode(file_get_contents($this->getDataFolder() . "Lists/$file"),true);
       }
     }
     $this->reloadConfig();
@@ -63,14 +63,24 @@ class Main extends PluginBase {
           $sender->sendMessage("You do not have permission to use this command.");
           break;
         }
-        // TODO
-        $this->rewardPlayer($sender, 1);
+        $requests = [];
+        foreach($this->lists as $list) {
+          if(isset($list["check"]) && isset($list["claim"])) {
+            $requests[] = new Request($sender, $list["check"], "check");
+          }
+        }
+        $query = new QueryTask($requests);
+        $this->getServer()->getScheduler()->scheduleAsyncTask($query);
         break;
       default:
         $sender->sendMessage("Invalid command.");
         break;
     }
     return true;
+  }
+
+  public function returnQuery($requests) {
+    // TODO
   }
 
   public function getItems() {
