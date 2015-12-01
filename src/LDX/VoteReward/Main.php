@@ -32,6 +32,7 @@ class Main extends PluginBase {
         $lists[] = $file;
       }
     }
+    $this->reloadConfig();
     $config = $this->getConfig()->getAll();
     $this->message = $config["Message"];
     $this->items = [];
