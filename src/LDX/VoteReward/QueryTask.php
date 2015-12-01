@@ -1,24 +1,26 @@
 <?php
+
 namespace LDX\VoteReward;
+
 use pocketmine\Player;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
+
 class QueryTask extends AsyncTask {
-  function __construct($url,$p,$r) {
-    $this->url = $url;
-    $this->p = $p;
-    $this->r = $r;
+
+  function __construct(Request $request) {
+    $this->request = $request;
   }
+
   public function onRun() {
-    $this->data = file_get_contents($this->url);
+    $this->request->setData(file_get_contents($this->request->getURL()));
   }
+
   public function onCompletion(Server $server) {
-    if($this->r) {
-      $p = $server->getPlayer($this->p);
-      if($p instanceof Player) {
-        $server->getPluginManager()->getPlugin("VoteReward")->give($p,$this->data);
-      }
+    if($this->request->shouldReturn()) {
+      $server->getPluginManager()->getPlugin("VoteReward")->returnQuery($this->request->copy());
+      unset($this->request);
     }
   }
+
 }
-?>

@@ -45,10 +45,6 @@ class Main extends PluginBase {
   public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
     switch(strtolower($command->getName())) {
       case "vote":
-        if(!Utils::hasPermission($sender, "votereward.command.vote")) {
-          $sender->sendMessage("You do not have permission to use this command.");
-          break;
-        }
         if(isset($args[0]) && strtolower($args[0]) == "reload") {
           if(Utils::hasPermission($sender, "votereward.command.reload")) {
             $this->reload();
@@ -62,7 +58,12 @@ class Main extends PluginBase {
           $sender->sendMessage("This command must be used in-game.");
           break;
         }
+        if(!Utils::hasPermission($sender, "votereward.command.vote")) {
+          $sender->sendMessage("You do not have permission to use this command.");
+          break;
+        }
         // TODO
+        $this->rewardPlayer($sender, 1);
         break;
       default:
         $sender->sendMessage("Invalid command.");
@@ -79,10 +80,10 @@ class Main extends PluginBase {
     return $clones;
   }
 
-  public function rewardPlayer(Player $player, int $multiplier) {
+  public function rewardPlayer(Player $player, $multiplier) {
     foreach($this->getItems() as $item) {
       $item->setCount($item->getCount() * $multiplier);
-      $player->addItem($item);
+      $player->getInventory()->addItem($item);
     }
     $commands = $this->commands;
     foreach($commands as $command) {
@@ -94,16 +95,18 @@ class Main extends PluginBase {
         "{NICKNAME}",
         "{X}",
         "{Y}",
+        "{Y1}",
         "{Z}"
       ), array(
         $player->getName(),
         $player->getDisplayName(),
         $player->getX(),
         $player->getY(),
+        $player->getY() + 1,
         $player->getZ()
       ), $command));
     }
-    if(trim($message) != "") {
+    if(trim($this->message) != "") {
       $message = $this->message;
       preg_replace_callback("/(\\\&|\&)[0-9a-fk-or]/", function(array $matches) {
         return str_replace("\\§", "&", str_replace("&", "§", $matches[0]));

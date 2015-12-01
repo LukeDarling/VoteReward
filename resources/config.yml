@@ -5,12 +5,13 @@
 #   {NICKNAME} ... The display name of the player who voted. ........ Commands and message.
 #   {X} .......... The X coordinate of the player. .................. Commands only.
 #   {Y} .......... The Y coordinate of the player. .................. Commands only.
+#   {Y1} ......... The Y coordinate of the player plus 1. ........... Commands only.
 #   {Z} .......... The Z coordinate of the player. .................. Commands only.
 
 # EssentialsPE style color codes can be used in the message and commands.
 
 # Message to broadcast to the server when a player votes.
-Message: "The player {NICKNAME}&r voted with /vote and got cool rewards!"
+Message: "The player &e{NICKNAME}&r voted with &b/vote&r and got cool rewards!"
 
 # List of items to give players when they vote. Format: ID:Damage:Amount
 Items:
@@ -20,4 +21,4 @@ Items:
 
 # List of commands to execute when a player votes.
 Commands:
-  - "particle magicCrit {X} {Y} {Z} 3 3 3 3 100 force"
+  - "particle portal {X} {Y1} {Z} 2 2 2 10000"
