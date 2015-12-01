@@ -80,7 +80,7 @@ class Main extends PluginBase {
   }
 
   public function returnQuery($requests) {
-    // TODO
+    // TODO: Accept return queries.
   }
 
   public function getItems() {
