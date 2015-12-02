@@ -4,23 +4,27 @@ namespace LDX\VoteReward;
 
 class Request {
 
-  private $url;
+  private $list;
   private $player;
   private $type;
   private $data = [];
 
-  public function __construct($player, $url, $type) {
+  public function __construct($player, $list, $type) {
     $this->player = $player;
-    $this->url = $url;
+    $this->list = $list;
     $this->type = $type;
   }
 
   public function getPlayer() {
     return $this->player;
   }
+
+  public function getList() {
+    return $this->list;
+  }
   
   public function getURL() {
-    return $this->url;
+    return isset($this->list[strtolower($type)]) ? $this->list[strtolower($type)] : false;
   }
 
   public function getType() {

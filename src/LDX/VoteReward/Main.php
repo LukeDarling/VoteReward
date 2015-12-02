@@ -66,7 +66,7 @@ class Main extends PluginBase {
         $requests = [];
         foreach($this->lists as $list) {
           if(isset($list["check"]) && isset($list["claim"])) {
-            $requests[] = new Request($sender, $list["check"], "check");
+            $requests[] = new Request($sender, $list, "check");
           }
         }
         $query = new QueryTask($requests);
@@ -80,7 +80,12 @@ class Main extends PluginBase {
   }
 
   public function returnQuery($requests) {
-    // TODO: Accept return queries.
+    foreach($requests as $request) {
+      $data = $request->getData();
+      if(isset($data["voted"]) && $data["voted"] == true) {
+        
+      }
+    }
   }
 
   public function getItems() {
