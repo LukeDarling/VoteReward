@@ -103,9 +103,6 @@ class Main extends PluginBase {
     }
     $commands = $this->commands;
     foreach($commands as $command) {
-      preg_replace_callback("/(\\\&|\&)[0-9a-fk-or]/", function(array $matches) {
-        return str_replace("\\§", "&", str_replace("&", "§", $matches[0]));
-      }, $command);
       $this->getServer()->dispatchCommand(new ConsoleCommandSender, str_replace(array(
         "{USERNAME}",
         "{NICKNAME}",
@@ -120,20 +117,17 @@ class Main extends PluginBase {
         $player->getY(),
         $player->getY() + 1,
         $player->getZ()
-      ), $command));
+      ), Utils::translateColors($command)));
     }
     if(trim($this->message) != "") {
       $message = $this->message;
-      preg_replace_callback("/(\\\&|\&)[0-9a-fk-or]/", function(array $matches) {
-        return str_replace("\\§", "&", str_replace("&", "§", $matches[0]));
-      }, $message);
       $message = str_replace(array(
         "{USERNAME}",
         "{NICKNAME}"
       ), array(
         $player->getName(),
         $player->getDisplayName()
-      ), $message);
+      ), Utils::translateColors($message));
       foreach($this->getServer()->getOnlinePlayers() as $p) {
         $p->sendMessage($message);
       }

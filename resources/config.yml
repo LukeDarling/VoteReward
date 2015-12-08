@@ -3,7 +3,7 @@
 # Official VoteReward Server List Directory:
 # http://votereward.mcpe.me/?p=lists
 #
-# Variables:
+# Config Variables:
 #   {USERNAME} ... The username of the player who voted. ....... Commands and message.
 #   {NICKNAME} ... The display name of the player who voted. ... Commands and message.
 #   {X} .......... The X coordinate of the player. ............. Commands only.

@@ -19,4 +19,11 @@ class Utils {
     return false;
   }
 
+  public static function translateColors($string) {
+    $message = preg_replace_callback("/(\\\&|\&)[0-9a-fk-or]/", function($matches) {
+      return str_replace("\\§", "&", str_replace("&", "§", $matches[0]));
+    }, $string);
+    return $string;
+  }
+
 }
