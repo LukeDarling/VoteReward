@@ -1,12 +1,15 @@
 # Config file for VoteReward by LDX.
-
+#
+# Official VoteReward Server List Directory:
+# http://votereward.mcpe.me/?p=lists
+#
 # Variables:
-#   {USERNAME} ... The username of the player who voted. ............ Commands and message.
-#   {NICKNAME} ... The display name of the player who voted. ........ Commands and message.
-#   {X} .......... The X coordinate of the player. .................. Commands only.
-#   {Y} .......... The Y coordinate of the player. .................. Commands only.
-#   {Y1} ......... The Y coordinate of the player plus 1. ........... Commands only.
-#   {Z} .......... The Z coordinate of the player. .................. Commands only.
+#   {USERNAME} ... The username of the player who voted. ....... Commands and message.
+#   {NICKNAME} ... The display name of the player who voted. ... Commands and message.
+#   {X} .......... The X coordinate of the player. ............. Commands only.
+#   {Y} .......... The Y coordinate of the player. ............. Commands only.
+#   {Y1} ......... The Y coordinate of the player plus 1. ...... Commands only.
+#   {Z} .......... The Z coordinate of the player. ............. Commands only.
 
 # EssentialsPE style color codes can be used in the message and commands.
 
