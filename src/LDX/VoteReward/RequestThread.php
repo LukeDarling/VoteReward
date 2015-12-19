@@ -48,7 +48,7 @@ class RequestThread extends AsyncTask {
     foreach($this->errors as $error) {
       $server->getLogger()->warning("[VoteReward] $error");
     }
-    $server->getPluginManager()->getPlugin("VoteReward")->rewardPlayer($server->getPlayerExact($this->id), $rewards);
+    $server->getPluginManager()->getPlugin("VoteReward")->rewardPlayer($server->getPlayerExact($this->id), $this->rewards);
   }
 
 }
