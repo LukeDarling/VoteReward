@@ -66,10 +66,10 @@ class Main extends PluginBase {
         $requests = [];
         foreach($this->lists as $list) {
           if(isset($list["check"]) && isset($list["claim"])) {
-            $requests[] = new Request($sender, $list, "check");
+            $requests[] = new ServerListQuery($list["check"], $list["claim"]);
           }
         }
-        $query = new QueryTask($requests);
+        $query = new RequestThread(strtolower($sneder->getName()), $requests);
         $this->getServer()->getScheduler()->scheduleAsyncTask($query);
         break;
       default:
@@ -77,15 +77,6 @@ class Main extends PluginBase {
         break;
     }
     return true;
-  }
-
-  public function returnQuery($requests) {
-    foreach($requests as $request) {
-      $data = $request->getData();
-      if(isset($data["voted"]) && $data["voted"] == true) {
-        
-      }
-    }
   }
 
   public function getItems() {
@@ -96,7 +87,14 @@ class Main extends PluginBase {
     return $clones;
   }
 
-  public function rewardPlayer(Player $player, $multiplier) {
+  public function rewardPlayer($player, $multiplier) {
+    if(!$player instanceof Player) {
+      return;
+    }
+    if($multiplier < 1) {
+      $player->sendMessage("[VoteReward] You haven't voted on any server lists!");
+      return;
+    }
     foreach($this->getItems() as $item) {
       $item->setCount($item->getCount() * $multiplier);
       $player->getInventory()->addItem($item);
@@ -133,6 +131,7 @@ class Main extends PluginBase {
       }
       $this->getServer()->getLogger()->info($message);
     }
+    $player->sendMessage("[VoteReward] You voted on $multiplier server lists!");
   }
 
 }
