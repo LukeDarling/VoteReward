@@ -69,7 +69,7 @@ class Main extends PluginBase {
             $requests[] = new ServerListQuery($list["check"], $list["claim"]);
           }
         }
-        $query = new RequestThread(strtolower($sneder->getName()), $requests);
+        $query = new RequestThread(strtolower($sender->getName()), $requests);
         $this->getServer()->getScheduler()->scheduleAsyncTask($query);
         break;
       default:
