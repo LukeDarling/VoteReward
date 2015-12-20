@@ -6,9 +6,9 @@ use pocketmine\Player;
 
 class Utils {
 
-  public static function hasPermission($player,$permission) {
+  public static function hasPermission($player, $permission) {
     $base = "";
-    $nodes = explode(".",$permission);
+    $nodes = explode(".", $permission);
     foreach($nodes as $key => $node) {
       $seperator = $key == 0 ? "" : ".";
       $base = "$base$seperator$node";
@@ -23,7 +23,7 @@ class Utils {
     $message = preg_replace_callback("/(\\\&|\&)[0-9a-fk-or]/", function($matches) {
       return str_replace("\\§", "&", str_replace("&", "§", $matches[0]));
     }, $string);
-    return $string;
+    return $message;
   }
 
 }

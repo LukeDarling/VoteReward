@@ -14,6 +14,8 @@ class Main extends PluginBase {
   private $message = "";
   private $items = [];
   private $commands = [];
+  private $debug = false;
+  public $queue = [];
 
   public function onEnable() {
     $this->reload();
@@ -41,6 +43,7 @@ class Main extends PluginBase {
       $this->items[] = new Item($r[0], $r[1], $r[2]);
     }
     $this->commands = $config["Commands"];
+    $this->debug = isset($config["Debug"]) && $config["Debug"] === true ? true : false;
   }
 
   public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
@@ -63,6 +66,11 @@ class Main extends PluginBase {
           $sender->sendMessage("You do not have permission to use this command.");
           break;
         }
+        if(in_array(strtolower($sender->getName()), $this->queue)) {
+          $sender->sendMessage("[VoteReward] Slow down! We're already checking lists for you.");
+          break;
+        }
+        $this->queue[] = strtolower($sender->getName());
         $requests = [];
         foreach($this->lists as $list) {
           if(isset($list["check"]) && isset($list["claim"])) {
