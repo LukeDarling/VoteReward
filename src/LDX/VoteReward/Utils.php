@@ -26,4 +26,20 @@ class Utils {
     return $message;
   }
 
+  public static function getURL($url) {
+    $query = curl_init($url);
+    curl_setopt($query, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($query, CURLOPT_SSL_VERIFYHOST, 2);
+    curl_setopt($query, CURLOPT_FORBID_REUSE, 1);
+    curl_setopt($query, CURLOPT_FRESH_CONNECT, 1);
+    curl_setopt($query, CURLOPT_AUTOREFERER, true);
+    curl_setopt($query, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($query, CURLOPT_HTTPHEADER, array("User-Agent: VoteReward"));
+    curl_setopt($query, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($query, CURLOPT_TIMEOUT, 5);
+    $return = curl_exec($query);
+    curl_close($query);
+    return $return;
+  }
+
 }

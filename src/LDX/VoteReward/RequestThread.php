@@ -17,11 +17,11 @@ class RequestThread extends AsyncTask {
 
   public function onRun() {
     foreach($this->queries as $query) {
-      if(($return = @file_get_contents(str_replace("{USERNAME}", urlencode($this->id), $query->getCheckURL()))) != false && is_array(($return = json_decode($return, true))) && isset($return["voted"]) && is_bool($return["voted"]) && isset($return["claimed"]) && is_bool($return["claimed"])) {
+      if(($return = Utils::getURL(str_replace("{USERNAME}", urlencode($this->id), $query->getCheckURL()))) != false && is_array(($return = json_decode($return, true))) && isset($return["voted"]) && is_bool($return["voted"]) && isset($return["claimed"]) && is_bool($return["claimed"])) {
         $query->setVoted($return["voted"] ? 1 : -1);
         $query->setClaimed($return["claimed"] ? 1 : -1);
         if($query->hasVoted() && !$query->hasClaimed()) {
-          if(($return = @file_get_contents(str_replace("{USERNAME}", urlencode($this->id), $query->getClaimURL()))) != false && is_array(($return = json_decode($return, true))) && isset($return["voted"]) && is_bool($return["voted"]) && isset($return["claimed"]) && is_bool($return["claimed"])) {
+          if(($return = Utils::getURL(str_replace("{USERNAME}", urlencode($this->id), $query->getClaimURL()))) != false && is_array(($return = json_decode($return, true))) && isset($return["voted"]) && is_bool($return["voted"]) && isset($return["claimed"]) && is_bool($return["claimed"])) {
             $query->setVoted($return["voted"] ? 1 : -1);
             $query->setClaimed($return["claimed"] ? 1 : -1);
             if($query->hasVoted() && $query->hasClaimed()) {
