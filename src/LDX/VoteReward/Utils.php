@@ -2,8 +2,6 @@
 
 namespace LDX\VoteReward;
 
-use pocketmine\Player;
-
 class Utils {
 
   public static function hasPermission($player, $permission) {

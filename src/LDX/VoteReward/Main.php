@@ -17,6 +17,25 @@ class Main extends PluginBase {
   private $debug = false;
   public $queue = [];
 
+  public function onLoad() {
+    if(file_exists($this->getDataFolder() . "config.yml")) {
+      $c = $this->getConfig()->getAll();
+      if(isset($c["API-Key"])) {
+        if(trim($c["API-Key"]) != "") {
+          if(!is_dir($this->getDataFolder() . "Lists/")) {
+            mkdir($this->getDataFolder() . "Lists/");
+          }
+          file_put_contents($this->getDataFolder() . "Lists/minecraftpocket-servers.com.vrc", "{\"website\":\"http://minecraftpocket-servers.com/\",\"check\":\"http://minecraftpocket-servers.com/api-vrc/?object=votes&element=claim&key=" . $c["API-Key"] . "&username={USERNAME}\",\"claim\":\"http://minecraftpocket-servers.com/api-vrc/?action=post&object=votes&element=claim&key=" . $c["API-Key"] . "&username={USERNAME}\"}");
+          rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.old.yml");
+          $this->getLogger()->info("§eConverting API key to VRC file...");
+        } else {
+          rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.old.yml");
+          $this->getLogger()->info("§eSetting up new configuration file...");
+        }
+      }
+    }
+  }
+
   public function onEnable() {
     $this->reload();
   }
