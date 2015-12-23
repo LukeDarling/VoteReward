@@ -87,14 +87,6 @@ class Main extends PluginBase {
     return true;
   }
 
-  public function getItems() {
-    $clones = [];
-    foreach($this->items as $item) {
-      $clones[] = clone $item;
-    }
-    return $clones;
-  }
-
   public function rewardPlayer($player, $multiplier) {
     if(!$player instanceof Player) {
       return;
@@ -103,12 +95,15 @@ class Main extends PluginBase {
       $player->sendMessage("[VoteReward] You haven't voted on any server lists!");
       return;
     }
-    foreach($this->getItems() as $item) {
+    $clones = [];
+    foreach($this->items as $item) {
+      $clones[] = clone $item;
+    }
+    foreach($clones as $item) {
       $item->setCount($item->getCount() * $multiplier);
       $player->getInventory()->addItem($item);
     }
-    $commands = $this->commands;
-    foreach($commands as $command) {
+    foreach($this->commands as $command) {
       $this->getServer()->dispatchCommand(new ConsoleCommandSender, str_replace(array(
         "{USERNAME}",
         "{NICKNAME}",
@@ -126,20 +121,19 @@ class Main extends PluginBase {
       ), Utils::translateColors($command)));
     }
     if(trim($this->message) != "") {
-      $message = $this->message;
       $message = str_replace(array(
         "{USERNAME}",
         "{NICKNAME}"
       ), array(
         $player->getName(),
         $player->getDisplayName()
-      ), Utils::translateColors($message));
+      ), Utils::translateColors($this->message));
       foreach($this->getServer()->getOnlinePlayers() as $p) {
         $p->sendMessage($message);
       }
       $this->getServer()->getLogger()->info($message);
     }
-    $player->sendMessage("[VoteReward] You voted on $multiplier server lists!");
+    $player->sendMessage("[VoteReward] You voted on $multiplier server list" . ($multiplier == 1 ? "" : "s") . "!");
   }
 
 }
