@@ -7,8 +7,8 @@ use pocketmine\scheduler\AsyncTask;
 
 class RequestThread extends AsyncTask {
 
-  private $queries = [];
-  private $rewards = 0;
+  private $queries;
+  private $rewards;
 
   public function __construct($id, $queries) {
     $this->id = $id;
