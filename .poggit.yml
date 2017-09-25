@@ -1,7 +1,7 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/ZPlayzMCPE/VoteReward
 branches:
-- patch-1
+- master
 projects:
-  VoteReward:
+  VoteReward-Prismarine:
     path: ""
 ...
