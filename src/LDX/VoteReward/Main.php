@@ -65,7 +65,7 @@ class Main extends PluginBase {
     $this->debug = isset($config["Debug"]) && $config["Debug"] === true ? true : false;
   }
 
-  public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
+  public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
     switch(strtolower($command->getName())) {
       case "vote":
         if(isset($args[0]) && strtolower($args[0]) == "reload") {
